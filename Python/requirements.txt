@@ -1,0 +1,9 @@
+findpeaks==2.5.2
+matplotlib==3.5.2
+numpy==1.22.3
+opencv_contrib_python==4.6.0.66
+opencv_python==4.6.0.66
+scikit_image==0.19.3
+scikit_learn==1.2.0
+scipy==1.14.1
+torch==1.11.0
