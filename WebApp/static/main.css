@@ -1,0 +1,121 @@
+body{
+    background-color: blanchedalmond;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    text-align: center;
+}
+
+a {
+    background-color: darkblue;
+    font-size: 30px;
+    padding: 10px;
+    color: azure;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+a:hover {
+    background-color: cornflowerblue;
+    text-shadow: 0px 5px 3px #003d88;
+}
+
+.my-button {
+    background-color: darkblue;
+    font-size: 30px;
+    padding: 10px;
+    color: azure;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 10px;
+    border-color: aliceblue;
+}
+
+
+.containerdiv { float: left; position: relative; }
+.cornerimage { position: absolute; top: 0; right: 0; width: 50%}
+
+
+.header{
+    background-color: darkblue;
+    color: azure;
+    text-align: left;
+    padding-top: 0.3%;
+    padding-bottom: 0.3%;
+}
+
+.header h1 {
+    margin-left: 5%;
+    font-size: 40px;
+    font-family: Courier, monospace;
+    text-shadow: 0px 5px 3px #003D88FF
+}
+
+.header table {
+    width: 100%;
+}
+
+.header a:hover {
+    background-color: azure;
+    color: black;
+    text-shadow: unset;
+}
+
+.content {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.my-form {
+    padding-bottom: 2%;
+}
+
+.my-form input[type=text]{
+    border: none;
+    border-bottom: 2px solid darkblue;
+    padding: 12px 20px;
+    font-size: 20px;
+}
+
+
+.my-form input[type=submit]{
+    border: none;
+    outline: none;
+    background-color: darkblue;
+    font-size: 30px;
+    padding: 10px;
+    color: azure;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+.my-form input[type=submit]:hover{
+    border: none;
+    outline: none;
+    background-color: cornflowerblue;
+    text-shadow: 0px 5px 3px #003D88FF;
+}
+
+.my-form input[type=file]{
+    border: none;
+    outline: none;
+    background-color: darkblue;
+    font-size: 30px;
+    padding: 10px;
+    color: azure;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+.my-form input[type=file]:hover{
+    border: none;
+    outline: none;
+    background-color: cornflowerblue;
+    text-shadow: 0px 5px 3px #003D88FF;
+}
+
+.my-form label {
+    font-size: 20px;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+}

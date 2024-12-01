@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"; style="height: 100%; width: 100%; margin: 0; padding: 0">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Photos</title>
+</head>
+<body style="height: 100%; width: 100%; margin: 0; padding: 0; text-align: center;">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.7.0/fabric.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<div style="display: flex;  justify-content: center;  align-items: center;  height: 100%;">
+{% if image1 and image2 %}
+    <div>
+    <table>
+        <tr>
+            <td>
+                <div class="containerdiv">
+                    <img border="0" src="{{ image1 }}">
+                    <div id="loading1" style="display:none;"><img src="static/images/wait.gif" alt="" class="cornerimage"/></div>
+                </div>
+
+            </td>
+            <td>
+                <div class="containerdiv">
+                    <img border="0" src="{{ image2 }}">
+                    <div id="loading2" style="display:none;"><img src="static/images/wait.gif" alt="" class="cornerimage"/></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/upload">WRONG, I want to do it again</a>
+            </td>
+            <td>
+                <form method=post action="/compute" onsubmit="$('#loading1').show();$('#loading2').show();" class="my-form">
+                    <input type=submit value='Start Processing' name='submit_btn'>
+                </form>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+
+
+
+
+
+{% else %}
+    Images will be here
+{% endif %}
+</div>
+</body>
+</html>

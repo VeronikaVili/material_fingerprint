@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%; width: 100%; margin: 0; padding: 0">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body style="height: 100%; width: 100%; margin: 0; padding: 0; text-align: center">
+<div style="display: flex;  justify-content: center;  align-items: center;  height: 100%;">
+<table style="display: flex;  justify-content: center;  align-items: center;  height: 90%; border-collapse: collapse;">
+    <tr>
+        <td style="height: 80%">
+            {% if image1 %}
+                <img style="max-height: 90%" src="{{ image1 }}">
+            {% else %}
+                Result will be here
+            {% endif %}
+        </td>
+        <td>
+            <a href="/">DO IT AGAIN</a>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

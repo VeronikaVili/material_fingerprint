@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%; width: 100%; margin: 0; padding: 0">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Photos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body style="height: 100%; width: 100%; margin: 0; padding: 0; text-align: center">
+
+{#<canvas id="canvas" width="300" height="300"></canvas>#}
+<div  style="display: flex;  justify-content: center;  align-items: center;  height: 100%;">
+<form action="{{ url_for('display') }}" enctype="multipart/form-data" method="POST" class="my-form">
+    <table>
+        <tr>
+            <td>
+                <input name = "img1" type="file"/>
+            </td>
+            <td>
+                <input name = "img2" type="file"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+</body>
+</html>

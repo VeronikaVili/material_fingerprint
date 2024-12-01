@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en"; style="height: 100%; width: 100%; margin: 0; padding: 0">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Photos</title>
+</head>
+<body style="height: 100%; width: 100%; margin: 0; padding: 0; text-align: center">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.7.0/fabric.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<div style="display: flex;  justify-content: center;  align-items: center;  height: 100%;">
+{% if image1 and image2 %}
+    <div style="height: 90%">
+    <table style="height: 90%">
+        <tr>
+            <td>
+{#              <img src="{{ image1 }}" width="50%">#}
+                <div id="canvas_div_l", style="width: 70%; height: 100%">
+                    <canvas id="canvas_l" width=1000 height=500></canvas>
+                </div>
+            </td>
+            <td>
+{#                <img src="{{ image2 }}" width="50%">#}
+                <div id="canvas_div_r", style="width: 70%; height: 100%">
+                    <canvas id="canvas_r" width=1000 height=500></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button onclick="submitCrop()" class="my-button">Send</button>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <script>
+    function changeSize(canvas, div){
+        canvas_res = document.getElementById(canvas);
+        var w = document.getElementById(div).clientWidth;
+        var h = document.getElementById(div).clientHeight;
+        canvas_res.width = w;
+        canvas_res.height = h;
+        return [w, h];
+    }
+    function setUpCanvas(canvas_id, imageurl, w, h){
+        const canvas = new fabric.Canvas(canvas_id);
+        const image = fabric.Image.fromURL(imageurl,
+            function(img){
+                img.set({
+                    left: 0,
+                    top: 0,
+                    selectable: false
+                });
+                if (img.width > img.height){
+                    img.scaleToWidth(w);
+                } else {
+                    img.scaleToHeight(h);
+                }
+                canvas.add(img);
+                canvas.centerObject(img);
+                canvas.sendToBack(img);
+            })
+        const rect = new fabric.Rect({
+            top: h*0.1,
+            left: w*0.1,
+            width: w*0.9,
+            height: h*0.9,
+            borderColor: 'red',
+            borderScaleFactor: 2,
+            fill: "rgba(0,0,255,0.5)"
+        });
+        canvas.add(rect);
+        canvas.setActiveObject(rect);
+        canvas.bringToFront(rect);
+        canvas.preserveObjectStacking = true;
+        return canvas
+    }
+    var [w_l, h_l] = changeSize("canvas_l", "canvas_div_l");
+    console.log(w_l, h_l);
+    var canvas_l = setUpCanvas("canvas_l", "{{ image1 }}", w_l, h_l);
+
+    var [w_r, h_r] = changeSize("canvas_r", "canvas_div_r");
+    console.log(w_r, h_r);
+    var canvas_r = setUpCanvas("canvas_r", "{{ image2 }}", w_r, h_r);
+    </script>
+
+
+
+    <script>
+    function scaleCrop(image, rect, height, width) {
+        var crop_w_l = (rect.width * rect.scaleX) / (image.scaleX)
+        var crop_h_l = (rect.height * rect.scaleY) / (image.scaleY)
+        if (image.width > image.height){
+            var crop_t_l = (rect.top - (height-(image.height * image.scaleY))/2) / image.scaleY
+            var crop_l_l = rect.left / image.scaleX
+        }
+        else {
+            var crop_l_l = (rect.left - (width-(image.width * image.scaleX))/2) / image.scaleX
+            var crop_t_l = rect.top / image.scaleY
+        }
+        return [crop_w_l, crop_h_l, crop_t_l, crop_l_l]
+    }
+    function submitCrop() {
+        var [crop_w_l, crop_h_l, crop_t_l, crop_l_l] = scaleCrop(canvas_l.item(0), canvas_l.item(1), canvas_l.height, canvas_l.width)
+        var [crop_w_r, crop_h_r, crop_t_r, crop_l_r] = scaleCrop(canvas_r.item(0), canvas_r.item(1), canvas_r.height, canvas_r.width)
+        $.ajax({
+            url: '/result',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                'crops': [
+                    {
+                        'id': 0,
+                        'image': "{{ image1 }}",
+                        'width': crop_w_l,
+                        'height': crop_h_l,
+                        'top': crop_t_l,
+                        'left':crop_l_l
+
+                },
+                    {
+                        'id': 1,
+                        'image': "{{ image2 }}",
+                        'width': crop_w_r,
+                        'height': crop_h_r,
+                        'top': crop_t_r,
+                        'left':crop_l_r
+
+                }]
+            }),
+            success: function (response) {
+                 window.location.replace('check')
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+    </script>
+
+{% else %}
+    Images will be here
+{% endif %}
+</div>
+</body>
+</html>
